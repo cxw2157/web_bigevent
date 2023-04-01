@@ -33,7 +33,7 @@ $(function () {
                     return layer.msg('用户名不存在或者密码错误！');
                 }
                 layer.msg('登录成功！');
-                console.log(location.href);
+                localStorage.setItem('token',res.token);
                 location.href='index.html';
             }
         });
