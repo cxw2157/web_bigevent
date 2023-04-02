@@ -39,7 +39,7 @@ function getUserInfo() {
 //欢迎用户和文字头像
 function renderAvatar(user) {
     var name = user.nickname || user.username;
-    console.log(user);
+    // console.log(user);
     $('#welcome').html('欢迎' + name);
     if (user.user_pic) {
         $('.layui-nav-img').attr('src', user.user_pic).show();
