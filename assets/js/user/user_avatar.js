@@ -36,13 +36,13 @@ $('#loadserver').on('click', function () {
       height: 100
     })
     .toDataURL('image/png');      // 将 Canvas 画布上的内容，转化为 base64 格式的字符串
-    console.log(dataURL);
+    // console.log(dataURL);
   $.ajax({
     method: 'POST',
     url: '/my/update/avatar',
     data: { avatar: dataURL },
     success: function (res) {
-      console.log(res);
+      // console.log(res);
       if (res.status != 0) {
         return layer.msg('更新头像失败!');
       }

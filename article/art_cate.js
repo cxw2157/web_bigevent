@@ -5,56 +5,53 @@ $(function () {
     var layerindex = null;
     var updatelayerindex = null;
     $('#artbtn').on('click', function () {
-        layer.msg('该功能开发尚未完善！');
-        // layerindex = layer.open({
-        //     type: 1,
-        //     title: '添加文章分类',
-        //     area: ['500px', '300px'],
-        //     content: $('#artCatebox').html()
-        // });
+        layerindex = layer.open({
+            type: 1,
+            title: '添加文章分类',
+            area: ['500px', '300px'],
+            content: $('#artCatebox').html()
+        });
     });
 
     $('tbody').on('click', '#edit', function () {
-        layer.msg('该功能开发尚未完善！');
-        // updatelayerindex = layer.open({
-        //     type: 1,
-        //     title: '修改文章分类',
-        //     area: ['500px', '300px'],
-        //     content: $('#dialog-edit').html()
-        // });
-
-        // var id = $(this).attr('data-id');
-        // $.ajax({
-        //     method: 'GET',
-        //     url: '/my/article/cates/' + id,
-        //     success: function (res) {
-        //         // console.log(res);
-        //         if (res.status != 0) {
-        //             return layer.msg('信息获取失败！');
-        //         }
-        //         form.val('form-edit', res.data);
-        //     }
-        // })
+        updatelayerindex = layer.open({
+            type: 1,
+            title: '修改文章分类',
+            area: ['500px', '300px'],
+            content: $('#dialog-edit').html()
+        });
+        var id = $(this).attr('data-id');
+        // console.log(id);
+        $.ajax({
+            method: 'GET',
+            url: '/my/article/cates/:' + id,
+            success: function (res) {
+                // console.log(res);
+                if (res.status != 0) {
+                    return layer.msg('信息获取失败！');
+                }
+                form.val('form-edit', res.data);
+            }
+        })
     });
  
     $('tbody').on('click', '#delete', function () {
-        layer.msg('该功能开发尚未完善！');
-        // var id = $(this).attr('data-id');
+        var id = $(this).attr('data-id');
         // console.log(id);
-        // layer.confirm('确认删除？',{icon:3,title:'提示'},function(){
-        //     $.ajax({
-        //     method: 'GET',
-        //     url: '/my/article/deletecate/' + id,
-        //     success: function (res) {
-        //         console.log(res);
-        //         if (res.status != 0) {
-        //             return layer.msg('删除分类失败！');
-        //         }
-        //         layer.msg('删除分类成功！');
-        //         initArtCateList();
-        //     }
-        // });
-        // });
+        layer.confirm('确认删除？',{icon:3,title:'提示'},function(){
+            $.ajax({
+            method: 'GET',
+            url: '/my/article/deletecate/:' + id,
+            success: function (res) {
+                // console.log(res);
+                if (res.status != 0) {
+                    return layer.msg('删除分类失败！');
+                }
+                layer.msg('删除分类成功！');
+                initArtCateList();
+            }
+        });
+        });
         
     });
 
@@ -66,11 +63,11 @@ $(function () {
             url: '/my/article/addcates',
             data: $(this).serialize(),
             success: function (res) {
-                console.log(res);
+                // console.log(res);
                 if (res.status != 0) {
-                    // return layer.msg('文章分类添加失败！');
+                    return layer.msg('文章分类添加失败！');
                 }
-                layer.msg('文章分类接口有误！');
+                layer.msg('文章分类添加成功！');
                 initArtCateList();
                 layer.close(layerindex);
             }
@@ -87,7 +84,7 @@ $(function () {
             success: function (res) {
                 console.log(res);
                 if (res.status != 0) {
-                    return layer.msg('文章分类修改失败！');
+                    return layer.msg('文章分类名称重复，请修改后重试！');
                 }
                 layer.msg('文章分类修改成功！');
                 initArtCateList();

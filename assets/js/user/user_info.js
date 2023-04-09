@@ -12,7 +12,7 @@ $(function () {
         e.preventDefault();
         updateUserInfo();
         //调用父页面的方法更新用户头像和昵称
-        window.parent.getUserInfo();
+        // window.parent.getUserInfo();会有延迟
     });
     $('#btnreset').on('click',function(e){
         e.preventDefault();
@@ -34,17 +34,17 @@ $(function () {
     }
 
     function updateUserInfo() {
-        console.log($('.layui-form').serialize());
+        // console.log($('.layui-form').serialize());
         $.ajax({
             url: '/my/userinfo',
             method: 'POST',
             data: $('.layui-form').serialize(),
-            // data: {name:'测试555',alias:'test555'},
             success: function (res) {
                 if (res.status != 0) {
                     return layer.msg('更新用户信息失败！');
                 }
                 layer.msg('信息更新成功！');
+                window.parent.getUserInfo();
             }
         })
     }

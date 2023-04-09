@@ -34,10 +34,10 @@
             <table class="layui-table">
                 <colgroup>
                     <col>
-                    <col width="150">
-                    <col width="180">
-                    <col width="150">
-                    <col width="150">
+                    <col width="280">
+                    <col width="280">
+                    <col width="280">
+                    <col width="250">
                 </colgroup>
                 <thead>
                     <tr>
@@ -49,13 +49,7 @@
                     </tr>
                 </thead>
                 <tbody id="artlistbody">
-                    <!-- <td>贤心</td>
-                    <td>2016-11-29</td>
-                    <td>人生就像是一场修行</td>
-                    <td>人生就像是一场修行</td>
-                    <td><button type="button" class="layui-btn layui-btn-sm">编辑</button>
-                        <button type="button" class="layui-btn layui-btn-danger layui-btn-sm">删除</button>
-                    </td> -->
+                    
                 </tbody>
             </table>
 
@@ -64,22 +58,61 @@
     </div>
 
     <script type="text/html" id='tpl-table'>
-        <option value="">所有状态</option>
+        <option value="">所有类别</option>
         {{each data}}
-            <option value="{{$value.Id}}">{{$value.name}}</option>
+            <option value="{{$value.id}}">{{$value.name}}</option>
         {{/each}}
       </script>
 
+      <!-- 初始化表单页面 -->
     <script type="text/html" id='tpl-cate'>
         {{each data}}
-        <!-- <tr>
-            <td>贤心</td>
-            <td>2016-11-29</td>
-            <td>人生就像是一场修行</td>
-            <td>人生就像是一场修行</td>
-            <td>人生就像是一场修行</td>
-        </tr> -->
+        <tr>
+            <td>{{$value.title}}</td>
+            <td>{{$value.cate_name}}</td>
+            <td>{{$value.pub_date}}</td>
+            <td>{{$value.state}}</td>
+            <td><button type="button" class="layui-btn" id="btnEdit" data-id="{{$value.id}}">编辑</button>
+              <button type="button"  class="layui-btn layui-btn-danger btn-delete"  data-id="{{$value.id}}">删除</button>
+            </td>
+        </tr>
         {{/each}}
+      </script>
+
+      <script type="text/html" id="artList">
+        <form class="layui-form" id="form-edit" lay-filter="form-edit">
+            <!--& 第一行 -->
+            <div class="layui-form-item">
+              <label class="layui-form-label">文章标题</label>
+              <div class="layui-input-block">
+                <input type="text" name="title" required lay-verify="required" placeholder="请输入标题" autocomplete="off"
+                  class="layui-input" />
+              </div>
+            </div>
+            <!--& 第二行 -->
+            <div class="layui-form-item">
+              <label class="layui-form-label">文章类别</label>
+              <div class="layui-input-block">
+                <select name="cate_id" lay-verify="required"></select>
+              </div>
+            </div>
+            <!--& 第三行 -->
+            <div class="layui-form-item">
+              <!-- 左侧的 label -->
+              <label class="layui-form-label">文章内容</label>
+              <!-- 为富文本编辑器外部的容器设置高度 -->
+              <div class="layui-input-block" style="height: 130px">
+                <textarea placeholder="请输入" class="layui-textarea" name="content"></textarea>
+              </div>
+            </div>
+            <!--& 第四行 -->
+            <div class="layui-form-item">
+              <div class="layui-input-block">
+                <button  class="layui-btn" lay-submit id="btnupdate">更新</button>
+                <button  class="layui-btn layui-btn-primary" lay-submit id="btnSave2">存为草稿</button>
+              </div>
+            </div>
+          </form>
       </script>
 
     <script src="../assets/lib/layui/layui.all.js"></script>

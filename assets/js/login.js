@@ -24,6 +24,7 @@ $(function () {
     var layer = layui.layer;
     $('.form-login').on('submit', function (e) {
         e.preventDefault();
+        console.log($('.form-login').serialize());
         $.ajax({
             url:'/api/login',
             method:'POST',
